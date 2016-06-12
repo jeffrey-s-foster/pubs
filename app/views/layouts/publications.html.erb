@@ -25,9 +25,9 @@
 </table>
 <td width="85%" valign="top">
 
-<% if session[:user_id] %>
+<% if logged_in then %>
 	<p class="login-bar">
-		<%= session[:user_id] %> |
+		<%= session['cas']['user'] %> |
 		<%= link_to 'log out', logout_url %>
 	</p>
 <% end %>

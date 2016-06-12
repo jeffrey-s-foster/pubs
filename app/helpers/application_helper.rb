@@ -7,4 +7,7 @@ module ApplicationHelper
     root_url + "logout?service=#{publications_url}"
   end
 
+  def logged_in
+    session['cas'] && (session['cas']['user'] == 'jfoster4')
+  end
 end

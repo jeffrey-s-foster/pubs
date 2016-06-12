@@ -13,7 +13,7 @@
 <body>
 
 <p class="login-bar">
-	<%= session[:user_id] %> |
+	<%= if session['cas'] then session['cas']['user'] end %> |
 	<%= link_to 'log out', logout_url %>
 </p>
 

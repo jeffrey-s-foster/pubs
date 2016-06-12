@@ -3,7 +3,7 @@
 <h1>All Publications
 	<span style="font-size: x-small;">
 		[ <%= link_to "bibtex", bibtexall_path %>
-		  <% if session[:user_id] then %>
+		  <% if logged_in then %>
 		  | <span class="logged-in"> <%= link_to 'new paper', new_paper_path %></span>
 		  <% end %>
 		 ]

@@ -28,8 +28,8 @@ class PapersController < ApplicationController
 
   # POST /papers
   def create
-    adjust params
-    @paper = Paper.new(params[:paper])
+    the_params = adjust params
+    @paper = Paper.new(the_params)
 
     if flash[:error]
       render :action => "edit"
@@ -45,11 +45,11 @@ class PapersController < ApplicationController
   # PUT /papers/1
   def update
     @paper = Paper.find(params[:id])
-    adjust params
+    the_params = adjust params
     if flash[:error]
-      @paper.attributes = params[:paper]
+      @paper.attributes = the_params
       render :action => "edit"
-    elsif @paper.update_attributes(params[:paper])
+    elsif @paper.update_attributes(the_params)
       flash.now[:notice] = "" if !flash.now[:notice]
       flash.now[:notice] = "Paper was successfully updated."
       redirect_to @paper
@@ -83,5 +83,6 @@ class PapersController < ApplicationController
       end
     }
     params[:paper][:tags] = tags
+    return params.require(:paper).permit!
   end
 end

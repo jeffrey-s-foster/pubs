@@ -1,5 +1,5 @@
 <p class="pub">
-<% if (not paper.hidden) || session[:user_id] %>
+<% if (not paper.hidden) || logged_in %>
 <span class="title"><%= link_to paper.title, paper.url %></span>
 <% if paper.hidden %><span class="logged-in">(Hidden)</span> <% end %>
 <br/>
@@ -14,7 +14,7 @@
     <br/>
 <% end %>
 
-<% if (not paper.draft) || session[:user_id] then prev = false %>
+<% if (not paper.draft) || logged_in then prev = false %>
 [
 <% end %>
 
@@ -27,12 +27,12 @@
   <%= link_to "doi", ("http://dx.doi.org/" + paper.doi) %>
 <% end %>
 
-<% if session[:user_id] then %>
+<% if logged_in then %>
   <% if prev %> | <% else prev = true end %>
   <span class="logged-in"> <%= link_to 'edit', edit_paper_path(paper) %></span>
 <% end %>
 
-<% if (not paper.draft) || session[:user_id] then prev = false %>
+<% if (not paper.draft) || logged_in then prev = false %>
 ]
 <% end %>
 
