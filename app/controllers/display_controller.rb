@@ -17,14 +17,14 @@ class DisplayController < ApplicationController
   end
 
   def bibtexall
-    @papers = Paper.all(:conditions => { "hidden" => false, "draft" => false })
-    @papers.sort! { |p1, p2| PapersHelper.compare_dates(p1, p2) }
+    @papers = Paper.where(hidden: false, draft: false)
+    @papers = @papers.sort { |p1, p2| PapersHelper.compare_dates(p1, p2) }
     render :layout => false, :content_type => "text/plain"
   end
 
   def cv
-    papers = Paper.all(:conditions => {"hidden" => false})
-    papers.sort! { |p1, p2| PapersHelper.compare_dates(p1, p2) }
+    papers = Paper.where(hidden: false)
+    papers = papers.sort { |p1, p2| PapersHelper.compare_dates(p1, p2) }
     @papers_journal = papers.reject { |p| not (p.kind == "journal" && !p.draft) }
     @papers_journal_drafts = papers.reject { |p| not (p.kind == "journal" && p.draft) }
     @papers_conf = papers.reject { |p| not (p.kind == "conf" && !p.draft) }
@@ -35,13 +35,13 @@ class DisplayController < ApplicationController
   end
 
   def recent
-    @papers = Paper.all(:conditions => {"hidden" => false})
-    @papers.sort! { |p1, p2| PapersHelper.compare_dates(p1, p2) }
-    @papers.reverse!
+    @papers = Paper.where(hidden: false)
+    @papers = @papers.sort { |p1, p2| PapersHelper.compare_dates(p1, p2) }
+    @papers = @papers.reverse
     @papers = @papers.first 10
     render :layout => false
   end
-  
+
 private
 
   def publications_by_year(papers)
@@ -64,5 +64,5 @@ private
     puts @papers
     render :publications, :layout => 'publications'
   end
-  
+
 end
