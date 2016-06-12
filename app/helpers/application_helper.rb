@@ -4,7 +4,7 @@ module ApplicationHelper
   MONTHS = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
 
   def logout_url
-    Rails.application.config.rack_cas.server_url + "/logout"
+    root_url + "logout?service=#{publications_url}"
   end
 
 end
