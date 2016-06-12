@@ -9,6 +9,7 @@ gem 'sqlite3'
 #gem 'paperclip', '~> 2.3'
 #gem 'authlogic'
 gem 'jquery-rails'
+gem 'uglifier'
 
 # Use unicorn as the web server
 # gem 'unicorn'
