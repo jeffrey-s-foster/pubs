@@ -67,7 +67,7 @@ class PapersController < ApplicationController
   end
 
   private
-  
+
   def adjust(params)
     if params[:paper][:month] == "other" then
       params[:paper][:month] = params[:paper][:month_other]

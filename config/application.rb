@@ -1,6 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require 'rack-cas/session_store/active_record'
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
@@ -40,5 +41,10 @@ module Pubs
     config.filter_parameters += [:password]
 
     config.assets.paths << Rails.root.join("vendor", "assets", "javascripts")
+
+    Rails.application.config.assets.precompile += %w( style.css smoothness/jquery-ui-1.8.14.custom.css scaffold.css )
+
+    config.rack_cas.server_url = 'https://login.umd.edu/cas'
+    config.rack_cas.session_store = RackCAS::ActiveRecordStore
   end
 end

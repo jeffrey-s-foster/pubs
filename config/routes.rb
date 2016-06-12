@@ -12,9 +12,9 @@ Pubs::Application.routes.draw do
     match "bibtex/:id", :action => "bibtex", :via => [:get], :as => :bibtex
   end
 
-  match "/login", :controller => :session, :action => :login, :via => [:get]
-  match "/logout", :controller => :session, :action => :logout, :via => [:get]
-  match "/authenticate", :controller => :session, :action => :authenticate, :via => [:post]
+  # match "/login", :controller => :session, :action => :login, :via => [:get]
+  # match "/logout", :controller => :session, :action => :logout, :via => [:get]
+  # match "/authenticate", :controller => :session, :action => :authenticate, :via => [:post]
   match "/admin", :controller => :admin, :action => :index, :via => :get
 
   root :to => "papers#index"
