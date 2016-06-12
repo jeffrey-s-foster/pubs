@@ -1,0 +1,82 @@
+%\section*{2. Research, Scholarly, and Creative Activities}
+
+%\subsection{a. Books}
+%\subsubsection{i. Books authored}
+%\subsubsection{ii. Books edited}
+%\subsubsection{iii. Chapters in books}
+
+%\subsection*{b. Articles in Refereed Journals}
+
+%\subsection*{c. Monographs, Reports, and Extension Publications}
+
+%\subsection*{d. Book Reviews, Other Articles, and Notes}
+
+%\subsection*{e. Talks, Abstracts, and Other Professional Papers Presented}
+%\subsubsection*{i. Invited talks, etc}
+%\subsubsection*{ii. Refereed conference proceedings}
+%\subsubsection*{iii. Unrefereed conference proceedings}
+
+\newcommand{\supervised}{\ensuremath{^\star}}
+\newcommand{\ar}[1]{\begin{scriptsize} Acceptance rate #1. \end{scriptsize}}
+
+\note{Listed in chronological order to conform to university
+  guidelines.}
+
+\begin{enumerate}
+\subsection*{b. Articles in Refereed Journals}
+
+\footnotetext[1]{Supervised student or postdoc author}
+
+<% @papers_journal.each do |paper| %>
+\item <%= DisplayHelper.format_latex paper %>
+<% end %>
+
+<% if @papers_journal_drafts.length > 0 %>
+
+\subsection*{Under Review}
+
+<% @papers_journal_drafts.each do |paper| %>
+\item <%= DisplayHelper.format_latex paper %>
+<% end %>
+
+<% end %>
+
+\subsection*{b$'$. Articles in Refereed Conferences and Workshops}
+
+<% @papers_conf.each do |paper| %>
+\item <%= DisplayHelper.format_latex paper %>
+<% end %>
+
+<% if @papers_conf_drafts.length > 0 %>
+
+\subsection*{Under Review}
+
+<% @papers_conf_drafts.each do |paper| %>
+\item <%= DisplayHelper.format_latex paper %>
+<% end %>
+
+<% end %>
+
+\subsection*{c. Monographs, Reports, and Extension Publications}
+
+\subsection*{Technical Reports}
+
+\note{Most of these papers contain additional material, such as formal
+  proofs or further experiments, referenced by the refereed conference
+  and journal papers listed above.}
+
+<% @papers_tr.each do |paper| %>
+\item <%= DisplayHelper.format_latex paper %>
+<% end %>
+
+
+\subsection*{Dissertation}
+
+<% @papers_thesis.each do |paper| %>
+\item <%= DisplayHelper.format_latex paper %>
+<% end %>
+
+
+% \subsection*{d. Book Reviews, Other Articles, and Notes}
+
+\end{enumerate}

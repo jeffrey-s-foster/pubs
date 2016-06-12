@@ -1,0 +1,162 @@
+<font color="red"><%= flash[:error] %></font>
+
+<%=  form_for(@paper) do |f| %>
+
+  <table id="edit_table">
+    <tr data-kind="all">
+      <td><%= t :kind %></td>
+      <td><%= f.select :kind, ["journal", "conf", "tr", "thesis"], :selected => if @paper.kind then @paper.kind else "conf" end %></td>
+    </tr>
+    <tr data-kind="journal conf tr">
+      <td><%= t :invited %></td>
+      <td><%= f.check_box :invited %></td>
+    </tr>
+    <tr data-kind="all">
+      <td><%= t :draft %></td>
+      <td><%= f.check_box :draft %></td>
+    </tr>
+    <tr data-kind="all">
+      <td><%= t :hidden %></td>
+      <td><%= f.check_box :hidden %></td>
+    </tr>
+    <tr data-kind="all">
+      <td><%= t :author %></td>
+      <td><%= f.text_field :author, :class=>:entry %><br>
+	<span class="comment">(use * for supervisee, ex: <i>A Student* and A Postdoc* and An Advisor</i>)</span>
+      </td>
+    </tr>
+    <tr data-kind="all">
+      <td><%= t :title %></td>
+      <td><%= f.text_field :title, :class=>:entry %></td>
+    </tr>
+    <tr data-kind="all">
+      <td><%= t :url %></td>
+      <td><%= f.text_field :url, :class=>:entry %></td>
+    </tr>
+    <tr data-kind="tr">
+      <td><%= t :institution %></td>
+      <td><%= f.text_field :institution, :class=>:entry %></td>
+    </tr>
+    <tr data-kind="thesis">
+      <td><%= t :school %></td>
+      <td><%= f.text_field :school, :class=>:entry %></td>
+    </tr>
+    <tr data-kind="conf">
+      <td><%= t :booktitle %></td>
+      <td><%= f.text_field :booktitle, :class=>:entry %></td>
+    </tr>
+    <tr data-kind="journal">
+      <td><%= t :journal %></td>
+      <td><%= f.text_field :journal, :class=>:entry %></td>
+    </tr>
+    <tr data-kind="conf tr">
+      <td><%= t :address %></td>
+      <td><%= f.text_field :address, :class=>:entry %></td>
+    </tr>
+    <tr data-kind="all">
+      <td><%= t :month %></td>
+      <td><%= f.select :month, ["other"] + ApplicationHelper::MONTHS_ABBRV,
+					{:selected => if ApplicationHelper::MONTHS_ABBRV.include? @paper.month then @paper.month else
+			                "other" end}, {:onchange => "ChangeMonth()"} %>
+			     <%= f.text_field :month_other, :size=>90, :value=> if ApplicationHelper::MONTHS_ABBRV.include? @paper.month then "" else @paper.month end %>
+      </td>
+    </tr>
+    <tr data-kind="all">
+      <td><%= t :year %></td>
+      <td><%= f.text_field :year, :class=>:entry %></td>
+    </tr>
+    <tr data-kind="journal conf">
+      <td><%= t :page_start %></td>
+      <td><%= f.text_field :page_start, :class=>:entry %></td>
+    </tr>
+    <tr data-kind="journal conf">
+      <td><%=  t :page_end %></td>
+      <td><%= f.text_field :page_end, :class=>:entry %></td>
+    </tr>
+    <tr data-kind="journal conf">
+      <td><%= t :article_number %></td>
+      <td><%= f.text_field :article_number, :class=>:entry %></td>
+    </tr>
+    <tr data-kind="journal conf">
+      <td><%= t :editor %></td>
+      <td><%= f.text_field :editor, :class=>:entry %></td>
+    </tr>
+    <tr data-kind="journal conf">
+      <td><%= t :volume %></td>
+      <td><%= f.text_field :volume, :class=>:entry %></td>
+    </tr>
+    <tr data-kind="journal conf tr">
+      <td><%= t :number %></td>
+      <td><%= f.text_field :number, :class=>:entry %></td>
+    </tr>
+    <tr data-kind="journal conf">
+      <td><%= t :series %></td>
+      <td><%= f.text_field :series, :class=>:entry %></td>
+    </tr>
+    <tr data-kind="conf">
+      <td><%= t :organization %></td>
+      <td><%= f.text_field :organization, :class=>:entry %></td>
+    </tr>
+    <tr data-kind="journal conf">
+      <td><%= t :publisher %></td>
+      <td><%= f.text_field :publisher, :class=>:entry %></td>
+    </tr>
+    <tr data-kind="all">
+      <td><%= t :note %></td>
+      <td><%= f.text_field :note, :class=>:entry %></td>
+      </tr>
+    <tr data-kind="all">
+      <td><%= t :doi %></td>
+      <td><%= f.text_field :doi, :class=>:entry %></td>
+    </tr>
+    <tr data-kind="conf">
+      <td><%= t :num_accepted %></td>
+      <td><%= f.text_field :num_accepted, :class=>:entry %></td>
+    </tr>
+    <tr data-kind="conf">
+      <td><%= t :num_submitted %></td>
+      <td><%= f.text_field :num_submitted, :class=>:entry %></td>
+    </tr>
+    <tr data-kind="all">
+      <td>Tags</td>
+      <td>
+	<%= f.text_field :tag_list, :type => :hidden %>
+	<div class="entry">
+	  <%= render :partial => "tags/tag_list", :locals => { :text_field_name => :paper_tag_list }  %>
+	</div>
+      </td>
+    </tr>
+  </table>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @paper %> |
+<%= link_to 'Back', papers_path %>
+
+<script language="javascript">
+
+function selectKind() {
+    p = $("#paper_kind")
+    k = $("#paper_kind").val()
+    $("tr").hide();
+    $("*[data-kind=\"all\"]").show();
+    $("*[data-kind~=\"" + k + "\"]").show();
+}
+
+selectKind();
+
+$("#paper_kind").click(function () { selectKind(); });
+
+function ChangeMonth() {
+  var m = document.getElementById("paper_month")
+  var o = document.getElementById("paper_month_other")
+  if (m.selectedIndex == 0)
+	o.style.display = ""
+  else
+	o.style.display = "none";
+}
+
+ChangeMonth();
+</script>

@@ -1,0 +1,1 @@
+document.write('<ul class="recent"><% @papers.each do |paper| %><li><%= link_to paper.title, paper.url %><%= r = DisplayHelper.format_short_ref paper; if r then " - " + r else "" end %><% end %><li><%= link_to "&laquo;more...&raquo;".html_safe, publications_url %></ul>');

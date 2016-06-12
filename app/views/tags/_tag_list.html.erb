@@ -1,0 +1,40 @@
+<% tag_names = (Tag.all.map { |t| t.name }).sort %>
+<ul>
+  <% tag_names.each do |t| %>
+    <li class="tag ui-state-default ui-corner-all"><%= t %></li>
+  <% end %>
+</ul>
+
+<script>
+    function initTagState() {
+	tags = $("#<%= text_field_name %>").val().split(", ");
+	$.each(tags, function(i,t) {
+/*** FIX CSS SELECTOR ***/
+//	    $(".tag[@=\"" + t + "\"]").removeClass("ui-state-disabled").addClass("ui-state-highlight");
+	    $(".tag").each(function () {
+		if ($(this).text() == t)
+		    $(this).addClass("selected");
+	    });
+	});
+    }
+    initTagState();
+    $(".tag").mouseover(function() {
+	$(this).addClass("ui-state-hover");
+    }).mouseout(function(){
+	$(this).removeClass("ui-state-hover");
+    });
+
+
+    $(".tag").click(function(e) {
+	if (e.metaKey) {
+	    $(".tag").each(function () { $(this).removeClass("selected"); })
+	    $(this).addClass("selected");
+	}
+	else {
+	    $(this).toggleClass("selected");
+	}
+	enabled_tags = []
+	$(".tag").each(function() { if (($(this).hasClass("selected"))) enabled_tags.push($(this).text()) });
+	$("#<%= text_field_name %>").val(enabled_tags.join(", "));
+    });
+</script>

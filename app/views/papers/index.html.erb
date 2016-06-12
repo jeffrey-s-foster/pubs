@@ -1,0 +1,37 @@
+<% fields = Array.new PapersHelper::FIELDS
+   fields.delete_if { |k,v| k == :kind }
+   fields.delete_if { |k,v| k == :invited }
+   fields.delete_if { |k,v| k == :draft }
+   fields.delete_if { |k,v| k == :hidden }
+%>
+
+<table class="papers" width="300%"">
+  <tr>
+	<th>Action</th>
+	<th>Kind</th>
+	<th>Flags</th>
+<% fields.each do |f| %>
+	<th><%= t f %> </th>
+<% end %>
+	<th>Tags</th>
+  </tr>
+
+<% flip = false %>
+
+<% @papers.each do |paper| %>
+  <tr <%= flip = !flip; if flip then 'class="grey"'.html_safe end %> >
+    <td><%= link_to 's', paper, :title => "Show"  %>
+    <%= link_to 'e', edit_paper_path(paper), :title => "Edit" %>
+    <%= link_to 'd', paper, :confirm => 'Are you sure?', :method => :delete, :title => "Delete" %></td>
+    <td><%= paper.kind %></td>
+	<td><%= PapersHelper.flags paper %></td>
+	<% fields.each do |f| %>
+	  <td><%= (paper.send f).to_s.html_safe %></td>
+	<% end %>
+	<td><%= (paper.tags.map {|t| t.name }).sort.join(", ") %></td>
+  </tr>
+<% end %>
+</table>
+
+<p>
+<%= link_to 'New paper', new_paper_path %>

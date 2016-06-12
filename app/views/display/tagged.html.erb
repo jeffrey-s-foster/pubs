@@ -1,0 +1,5 @@
+<h1>Publications tagged "<%= @tag.name %>"</h1>
+
+<% @papers.each do |paper| %>
+    <%= render "paper", :object => paper %>
+<% end %>

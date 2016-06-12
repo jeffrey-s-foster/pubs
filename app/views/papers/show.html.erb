@@ -1,0 +1,21 @@
+<p>
+<font color="green"><%= flash[:notice] %></font>
+<font color="red"><%= flash[:error] %></font>
+
+<p>
+<table>
+<% PapersHelper::FIELDS.each do |f| %>
+<%
+   v = @paper.send(f)
+   if v != ""
+%>
+     <tr><td><b><%= t f %>:</b></td><td><%= v.to_s.html_safe %></tr>
+  <% end %>
+<% end %>
+<tr><td><b>Tags:</b></td><td><%= @paper.tag_list %></tr>
+</table>
+
+<p>
+<%= link_to 'Edit', edit_paper_path(@paper) %> |
+<%= link_to 'Back', papers_path %> |
+<%= link_to 'New', new_paper_path %>

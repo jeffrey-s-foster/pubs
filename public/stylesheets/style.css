@@ -1,0 +1,66 @@
+p.pub {
+  margin-left: 30px;
+}
+p.pub span.title {
+  font-size: larger;
+  font-weight: bold;
+}
+p.pub span.author {
+}
+p.abstract span.title {
+  font-size: x-large;
+  font-weight: bold;
+  padding-bottom: 20pt;
+}
+p.abstract span.author {
+  font-weight: bold;
+}
+p.coauthors {
+  font-size: small;
+}
+h2.sep {
+  font-size: large;
+  background-color: lightgrey;
+  padding-left: 5pt;
+  padding-bottom: 10pt;
+  padding-top: 10pt;
+}
+h3.year {
+  padding-left: 10pt;
+}
+p.login-bar {
+  font-size: tiny;
+  text-align: right;
+  padding-right: 10pt;
+  background-color: tan;
+  color: black;
+}
+
+span.logged-in {
+  background-color: tan;
+  color: black;
+}
+
+span.logged-in a {
+  color: black;
+}
+li.tag {
+    display: inline-block;
+    padding: 3px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin: 2px;
+    font-size: x-small;
+}
+li.tag:hover {
+    cursor: pointer;
+}
+table.boxed {
+    border: 1px solid black;
+}
+.entry {
+    width: 800px;
+}
+.selected {
+    border: 2px solid;
+}

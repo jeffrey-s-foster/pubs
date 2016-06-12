@@ -1,0 +1,25 @@
+<% if flash[:notice] || flash[:error] %>
+<p>
+   <font color="green"><%= flash[:notice] %></font>
+   <font color="red"><%= flash[:error] %></font>
+</p>
+<% end %>
+
+<% width = 25 %>
+<% form_tag update_tags_path, :method => "put" do %>
+
+<table>
+	<% @tags.each do |tag| %>
+	<tr>
+	<td>
+	<td><%= text_field_tag ("tag_" + tag.id.to_s), tag.name, :size=>width %></td>
+	<td><%= link_to 'delete', tag, :confirm => 'Are you sure?', :method => :delete, :title => "Delete" %></td>
+	</tr>
+	<% end %>
+	<tr><td align="right"><i>New tag</i><td><%= text_field_tag :new_tag, nil, :size=>width %></td></tr>
+</table>
+<p>
+	<%= submit_tag 'Update' %>
+</p>
+
+<% end %>

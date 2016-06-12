@@ -1,0 +1,44 @@
+<% if @tag_name == :all %>
+
+<h1>All Publications
+	<span style="font-size: x-small;">
+		[ <%= link_to "bibtex", bibtexall_path %>
+		  <% if session[:user_id] then %>
+		  | <span class="logged-in"> <%= link_to 'new paper', new_paper_path %></span>
+		  <% end %>
+		 ]
+	</span>
+</h1>
+
+<% else %>
+
+<h1>Publications tagged "<%= @tag.name %>"</h1>
+
+<% end %>
+
+
+<% if @papers.has_key? "draft" %>
+  <h2 class="sep">Recent Drafts</h2>
+  <% @papers["draft"].each do |paper| %>
+    <%= render :partial => "paper", :object => paper %>
+  <% end %>
+<% end %>
+
+<h2 class="sep">Journal, Conference, and Workshop Papers</h2>
+
+<% @years.each do |year| %>
+  <h3 class="year"><%= year %></h3>
+	<% @papers[year].each do |paper| %>
+	  <%= render :partial => "paper", :object => paper %>
+	<% end %>
+<% end %>
+
+<% if @papers.has_key? "tr" %>
+
+	<h2 class="sep">Technical Reports</h2>
+
+	<% @papers["tr"].each do |paper| %>
+  	<%= render :partial => "paper", :object => paper %>
+	<% end %>
+
+<% end %>

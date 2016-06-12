@@ -1,0 +1,39 @@
+<p class="pub">
+<% if (not paper.hidden) || session[:user_id] %>
+<span class="title"><%= link_to paper.title, paper.url %></span>
+<% if paper.hidden %><span class="logged-in">(Hidden)</span> <% end %>
+<br/>
+<span class="author"><%= (DisplayHelper.format_author paper.author).html_safe %></span><br/>
+<%= (DisplayHelper.format_loc paper).html_safe %><br/>
+
+<% if not paper.tags.empty? %>
+    tags:
+	<% prev_tag = false
+	   sorted_tags = paper.tags.sort { |a, b| a.name <=> b.name }
+	   sorted_tags.each do |t| %><%= prev_tag ? ", " : "" %><%=link_to t.name, (tagged_url t)%><% prev_tag = true %><% end %>
+    <br/>
+<% end %>
+
+<% if (not paper.draft) || session[:user_id] then prev = false %>
+[
+<% end %>
+
+<% if not paper.draft %>
+  <% if prev %> | <% else prev = true end %>
+  <%= link_to "bibtex", bibtex_path(paper) %>
+<% end %>
+<% if (not paper.draft) && (not (DisplayHelper.empty paper.doi)) %>
+  <% if prev %> | <% else prev = true end %>
+  <%= link_to "doi", ("http://dx.doi.org/" + paper.doi) %>
+<% end %>
+
+<% if session[:user_id] then %>
+  <% if prev %> | <% else prev = true end %>
+  <span class="logged-in"> <%= link_to 'edit', edit_paper_path(paper) %></span>
+<% end %>
+
+<% if (not paper.draft) || session[:user_id] then prev = false %>
+]
+<% end %>
+
+<% end %>

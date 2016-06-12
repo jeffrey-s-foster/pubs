@@ -1,0 +1,3 @@
+Papers field names in
+	config/locales/en.yml
+	
