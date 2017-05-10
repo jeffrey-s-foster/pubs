@@ -1,4 +1,5 @@
 class DisplayController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:recent]
 
   def publications
     @tag_name = :all
@@ -36,9 +37,9 @@ class DisplayController < ApplicationController
 
   def recent
     @papers = Paper.where(hidden: false)
-    @papers = @papers.sort { |p1, p2| PapersHelper.compare_dates(p1, p2) }
-    @papers = @papers.reverse
-    @papers = @papers.first 10
+    @papers = @papers.sort { |p1, p2| PapersHelper.compare_dates(p1, p2) }.reverse.first(10)
+#    @papers = @papers.map { |p| {title: p.title, url: p.url, short_name: DisplayHelper.format_short_ref(p) } }
+#    render json: @papers
     render :layout => false
   end
 
